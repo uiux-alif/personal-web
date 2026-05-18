@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 – Page Not Found | Alifian Rifqi</title>
+  <meta name="description" content="Oops! This page is under construction." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/style.css" />
+  <style>
+    /* ── 404-only styles ── */
+    .pg-404 {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* background blobs */
+    .blob-404-1 {
+      position: absolute;
+      top: -15%;  left: -10%;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(200,240,96,.055) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: blobFloat 8s ease-in-out infinite;
+    }
+    .blob-404-2 {
+      position: absolute;
+      bottom: -10%; right: -10%;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(200,240,96,.04) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: blobFloat 10s ease-in-out infinite reverse;
+    }
+    @keyframes blobFloat {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50%       { transform: translateY(-24px) scale(1.04); }
+    }
+
+    /* construction scene */
+    .scene {
+      position: relative;
+      width: 340px;
+      height: 280px;
+      margin: 0 auto 48px;
+    }
+
+    /* the giant 404 */
+    .big-404 {
+      font-family: var(--fd);
+      font-size: clamp(7rem, 18vw, 11rem);
+      font-weight: 800;
+      letter-spacing: -.06em;
+      line-height: 1;
+      color: var(--card);
+      position: relative;
+      user-select: none;
+      animation: fsu .7s ease both;
+    }
+    .big-404 .zero-mid {
+      position: relative;
+      display: inline-block;
+    }
+    /* helmet sitting on the 0 */
+    .helmet {
+      position: absolute;
+      top: -28px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 2.2rem;
+      animation: helmetBob 2.4s ease-in-out infinite;
+    }
+    @keyframes helmetBob {
+      0%, 100% { transform: translateX(-50%) rotate(-6deg); }
+      50%       { transform: translateX(-50%) rotate(6deg) translateY(-6px); }
+    }
+
+    /* tape strip across */
+    .caution-tape {
+      position: absolute;
+      bottom: 30px; left: -20px; right: -20px;
+      height: 28px;
+      background: repeating-linear-gradient(
+        -55deg,
+        #c8f060 0px, #c8f060 18px,
+        #0a0a0a 18px, #0a0a0a 36px
+      );
+      border-radius: 3px;
+      opacity: .85;
+      animation: tapeSway 3s ease-in-out infinite;
+      transform-origin: left center;
+    }
+    @keyframes tapeSway {
+      0%, 100% { transform: rotate(-.5deg); }
+      50%       { transform: rotate(.5deg) scaleX(1.01); }
+    }
+    .caution-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--fd);
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: #0a0a0a;
+      mix-blend-mode: multiply;
+    }
+
+    /* floating tools */
+    .tool {
+      position: absolute;
+      font-size: 1.6rem;
+      animation: toolFloat 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .tool:nth-child(1) { top: 10px;  left:  8px; animation-delay: 0s;    animation-duration: 3.8s; }
+    .tool:nth-child(2) { top: 20px;  right: 10px; animation-delay: .6s;  animation-duration: 4.4s; }
+    .tool:nth-child(3) { bottom: 60px; left: 20px; animation-delay: 1.1s; animation-duration: 3.2s; }
+    .tool:nth-child(4) { bottom: 55px; right: 18px; animation-delay: 1.8s; animation-duration: 5s; }
+    @keyframes toolFloat {
+      0%, 100% { transform: translateY(0)   rotate(0deg); }
+      33%       { transform: translateY(-10px) rotate(-8deg); }
+      66%       { transform: translateY(-5px)  rotate(5deg); }
+    }
+
+    /* progress bar */
+    .progress-wrap {
+      width: 100%;
+      max-width: 360px;
+      margin: 0 auto 40px;
+      animation: fsu .8s .2s ease both;
+    }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .progress-label .pct { color: var(--accent); }
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 100px;
+      width: 0%;
+      transition: width 2.4s cubic-bezier(.25,.46,.45,.94);
+    }
+
+    /* status pills */
+    .status-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 40px;
+      animation: fsu .8s .3s ease both;
+    }
+    .s-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .75rem;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--muted);
+    }
+    .s-pill .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .dot-done  { background: #4ade80; }
+    .dot-wip   { background: var(--accent); animation: pulse 1.8s infinite; }
+    .dot-queue { background: var(--dim); }
+
+    /* main copy */
+    .err-eyebrow {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+      animation: fsu .7s ease both;
+    }
+    .err-title {
+      font-family: var(--fd);
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -.03em;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      animation: fsu .8s .1s ease both;
+    }
+    .err-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 420px;
+      margin: 0 auto 40px;
+      line-height: 1.75;
+      animation: fsu .8s .15s ease both;
+    }
+
+    /* ctas */
+    .err-ctas {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fsu .8s .25s ease both;
+      margin-bottom: 56px;
+    }
+
+    /* log terminal */
+    .terminal {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      text-align: left;
+      animation: fsu .9s .4s ease both;
+    }
+    .term-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 16px;
+      background: var(--bg3);
+      border-bottom: 1px solid var(--border);
+    }
+    .term-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .term-title {
+      margin-left: 4px;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .term-body {
+      padding: 20px;
+      font-family: 'Courier New', monospace;
+      font-size: .8rem;
+      line-height: 1.8;
+    }
+    .term-line { display: flex; gap: 10px; }
+    .term-prompt { color: var(--accent); flex-shrink: 0; }
+    .term-cmd    { color: var(--text); }
+    .term-out    { color: var(--muted); padding-left: 18px; }
+    .term-err    { color: #f87171; padding-left: 18px; }
+    .term-ok     { color: #4ade80; padding-left: 18px; }
+    .term-cursor {
+      display: inline-block;
+      width: 8px; height: 14px;
+      background: var(--accent);
+      vertical-align: middle;
+      animation: blink .9s step-end infinite;
+      margin-left: 2px;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    @media (max-width: 480px) {
+      .scene { width: 280px; height: 230px; }
+      .big-404 { font-size: 6rem; }
+      .terminal { border-radius: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cur" id="cur"></div>
+  <div class="cur-r" id="curR"></div>
+
+  <!-- Nav -->
+  <nav class="always-border">
+    <a href="index.html" class="n-logo">alif<span>.</span></a>
+    <ul class="n-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="works.html">Works</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <a href="mailto:uiux.alif@gmail.com" class="n-cta">Let's Talk</a>
+  </nav>
+
+  <div class="pg-404">
+    <div class="blob-404-1"></div>
+    <div class="blob-404-2"></div>
+
+    <!-- Scene -->
+    <div class="scene">
+      <!-- Floating tools -->
+      <div class="tool">🔧</div>
+      <div class="tool">📐</div>
+      <div class="tool">🪛</div>
+      <div class="tool">🔩</div>
+
+      <!-- Big 404 number -->
+      <!-- <div class="big-404">
+        4<span class="zero-mid">
+          <span class="helmet">⛑️</span>
+          0
+        </span>4
+      </div> -->
+
+      <!-- Caution tape -->
+      <div class="caution-tape">
+        <div class="caution-label">caution &nbsp;·&nbsp; under construction &nbsp;·&nbsp; caution</div>
+      </div>
+    </div>
+
+    <!-- Copy -->
+    <p class="err-eyebrow">Error 404</p>
+    <h1 class="err-title">This page is still<br>being <span class="ac">designed.</span></h1>
+    <p class="err-sub">Looks like you've wandered into a part of the site that isn't built yet. The designer is working on it — probably in Figma right now.</p>
+
+    <!-- Progress bar -->
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span>Page build progress</span>
+        <span class="pct" id="pctLabel">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </div>
+
+    <!-- Status pills -->
+    <div class="status-pills">
+      <div class="s-pill"><div class="dot dot-done"></div>Navigation</div>
+      <div class="s-pill"><div class="dot dot-done"></div>Design System</div>
+      <div class="s-pill"><div class="dot dot-wip"></div>This Page</div>
+      <div class="s-pill"><div class="dot dot-queue"></div>Content</div>
+      <div class="s-pill"><div class="dot dot-queue"></div>Deploy</div>
+    </div>
+
+    <!-- CTAs -->
+    <div class="err-ctas">
+      <a href="index.html" class="btn-p">← Back to Home</a>
+      <a href="works.html" class="btn-s">See My Work</a>
+    </div>
+
+    <!-- Terminal -->
+    <div class="terminal">
+      <div class="term-bar">
+        <div class="term-dot" style="background:#ff5f57;"></div>
+        <div class="term-dot" style="background:#febc2e;"></div>
+        <div class="term-dot" style="background:#28c840;"></div>
+        <div class="term-title">build.log</div>
+      </div>
+      <div class="term-body" id="termBody">
+        <div class="term-line"><span class="term-prompt">→</span><span class="term-cmd">navigate /page-not-found</span></div>
+        <div class="term-out">Looking up route... <span style="color:#f87171;">404</span></div>
+        <div class="term-out">Searching backup files...</div>
+        <div class="term-err">ERROR: page.html not found</div>
+        <div class="term-out">Checking Figma drafts...</div>
+        <div class="term-ok">FOUND: wireframe_v3_FINAL_final.fig</div>
+        <div class="term-out">Status: designer is working on it 👷</div>
+        <div class="term-out">ETA: <span style="color:var(--accent);">soon™</span></div>
+        <div class="term-line" style="margin-top:4px;"><span class="term-prompt">→</span><span class="term-cmd">wait...<span class="term-cursor"></span></span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <a href="index.html" class="ft-logo">alif<span>.</span></a>
+    <div class="ft-copy">© 2025 Muhammad Alifian Rifqi. Designed with care in Jakarta.</div>
+    <div class="ft-soc">
+      <a href="mailto:uiux.alif@gmail.com" class="ft-s">✉</a>
+      <a href="https://bit.ly/Alifian-UIUX-Portfolio" target="_blank" rel="noopener" class="ft-s">🔗</a>
+    </div>
+  </footer>
+
+  <script>
+    /* cursor */
+    const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+    (function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(a);})();
+    document.querySelectorAll('a,button').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{cur.style.width='16px';cur.style.height='16px';curR.style.width='48px';curR.style.height='48px';curR.style.opacity='.8';});
+      el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';curR.style.width='36px';curR.style.height='36px';curR.style.opacity='.45';});
+    });
+
+    /* animate progress bar to a random "almost done" value */
+    const targets = [34, 47, 61, 73, 82];
+    const target  = targets[Math.floor(Math.random() * targets.length)];
+    const bar     = document.getElementById('progressBar');
+    const lbl     = document.getElementById('pctLabel');
+
+    setTimeout(() => {
+      bar.style.width = target + '%';
+      let curr = 0;
+      const iv = setInterval(() => {
+        curr++;
+        lbl.textContent = curr + '%';
+        if (curr >= target) clearInterval(iv);
+      }, 2400 / target);
+    }, 600);
+
+    /* type out extra terminal lines after a pause */
+    const extra = [
+      { type: 'out', text: 'Redirecting you to safety...' },
+      { type: 'ok',  text: 'Tip: try the homepage ↗' },
+    ];
+    const termBody = document.getElementById('termBody');
+    let lineIdx = 0;
+    function addTermLine() {
+      if (lineIdx >= extra.length) return;
+      const l = extra[lineIdx++];
+      const div = document.createElement('div');
+      div.className = 'term-' + l.type;
+      div.textContent = l.text;
+      div.style.opacity = '0';
+      div.style.transition = 'opacity .4s ease';
+      termBody.appendChild(div);
+      requestAnimationFrame(() => { div.style.opacity = '1'; });
+      setTimeout(addTermLine, 1800);
+    }
+    setTimeout(addTermLine, 3200);
+  </script>
+</body>
+</html>

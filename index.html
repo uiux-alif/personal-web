@@ -4,224 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Alifian Rifqi – UI/UX & GIS Product Designer</title>
-  <meta name="description" content="Muhammad Alifian Rifqi – UI/UX Designer & GIS Product Designer based in Jakarta, Indonesia." />
+  <meta name="description" content="Muhammad Alifian Rifqi – UI/UX Designer & GIS Product Designer based in Jakarta, Indonesia. Designing intuitive, scalable digital experiences." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #0a0a0a; --bg2: #111; --bg3: #181818;
-      --card: #161616; --border: rgba(255,255,255,0.08);
-      --border-h: rgba(255,255,255,0.16);
-      --text: #f0ede8; --muted: #8a8680; --dim: #444240;
-      --accent: #c8f060; --accent2: rgba(200,240,96,0.12);
-      --accent-glow: rgba(200,240,96,0.22);
-      --fd: 'Syne', sans-serif; --fb: 'DM Sans', sans-serif;
-      --r: 16px; --rs: 10px; --t: 0.32s cubic-bezier(0.25,0.46,0.45,0.94);
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: var(--fb); font-size: 16px; line-height: 1.6; overflow-x: hidden; cursor: none; }
-
-    /* grain */
-    body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity:0.025; pointer-events:none; z-index:9990; }
-
-    /* cursor */
-    .cur { position:fixed; width:10px; height:10px; background:var(--accent); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:width .2s,height .2s; mix-blend-mode:difference; }
-    .cur-r { position:fixed; width:36px; height:36px; border:1.5px solid var(--accent); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); opacity:.45; }
-
-    /* nav */
-    nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:20px 60px; background:rgba(10,10,10,0.75); backdrop-filter:blur(24px); border-bottom:1px solid transparent; transition:border-color .3s; }
-    nav.sc { border-color:var(--border); }
-    .n-logo { font-family:var(--fd); font-weight:800; font-size:1.2rem; letter-spacing:-.02em; color:var(--text); text-decoration:none; }
-    .n-logo span { color:var(--accent); }
-    .n-links { display:flex; gap:36px; list-style:none; }
-    .n-links a { font-size:.875rem; color:var(--muted); text-decoration:none; letter-spacing:.02em; transition:color var(--t); }
-    .n-links a:hover, .n-links a.active { color:var(--text); }
-    .n-cta { background:var(--accent); color:#0a0a0a; font-family:var(--fd); font-weight:700; font-size:.8rem; letter-spacing:.04em; text-transform:uppercase; text-decoration:none; padding:10px 22px; border-radius:100px; transition:background var(--t),transform var(--t); }
-    .n-cta:hover { background:#d9ff70; transform:translateY(-1px); }
-    .n-ham { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
-    .n-ham span { display:block; width:24px; height:1.5px; background:var(--text); transition:all .3s; }
-    .mob-menu { display:none; position:fixed; inset:0; background:var(--bg); z-index:99; flex-direction:column; align-items:center; justify-content:center; gap:32px; }
-    .mob-menu.open { display:flex; }
-    .mob-menu a { font-family:var(--fd); font-size:2rem; font-weight:700; color:var(--text); text-decoration:none; transition:color .2s; }
-    .mob-menu a:hover { color:var(--accent); }
-    .mob-close { position:absolute; top:24px; right:28px; background:none; border:none; cursor:pointer; font-size:1.8rem; color:var(--text); }
-
-    /* buttons */
-    .btn-p { background:var(--accent); color:#0a0a0a; font-family:var(--fd); font-weight:700; font-size:.875rem; letter-spacing:.03em; padding:14px 32px; border-radius:100px; text-decoration:none; border:none; cursor:pointer; display:inline-flex; align-items:center; gap:8px; transition:background var(--t),transform var(--t),box-shadow var(--t); }
-    .btn-p:hover { background:#d9ff70; transform:translateY(-2px); box-shadow:0 12px 40px var(--accent-glow); }
-    .btn-s { background:transparent; color:var(--text); font-family:var(--fd); font-weight:600; font-size:.875rem; letter-spacing:.03em; padding:13px 32px; border-radius:100px; text-decoration:none; border:1px solid var(--border); cursor:pointer; display:inline-flex; align-items:center; gap:8px; transition:border-color var(--t),background var(--t),transform var(--t); }
-    .btn-s:hover { border-color:var(--border-h); background:rgba(255,255,255,.04); transform:translateY(-2px); }
-
-    /* section */
-    section { padding:120px 60px; max-width:1200px; margin:0 auto; }
-    .eyebrow { font-size:.75rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
-    .sec-title { font-family:var(--fd); font-size:clamp(2rem,3.5vw,3rem); font-weight:800; line-height:1.1; letter-spacing:-.03em; margin-bottom:24px; }
-
-    /* ── HERO ── */
-    #hero { min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding-top:120px; padding-bottom:80px; max-width:100%; position:relative; overflow:hidden; }
-    .h-inner { max-width:1200px; margin:0 auto; padding:0 60px; width:100%; position:relative; z-index:2; }
-    .h-badge { display:inline-flex; align-items:center; gap:8px; background:var(--accent2); border:1px solid rgba(200,240,96,.2); border-radius:100px; padding:6px 16px; margin-bottom:32px; font-size:.8rem; font-weight:500; color:var(--accent); letter-spacing:.06em; text-transform:uppercase; animation:fsu .8s ease both; }
-    .h-badge::before { content:''; width:7px; height:7px; background:var(--accent); border-radius:50%; animation:pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.85)} }
-    .h-hl { font-family:var(--fd); font-size:clamp(3.5rem,8vw,8rem); font-weight:800; line-height:.95; letter-spacing:-.04em; margin-bottom:8px; animation:fsu .9s .1s ease both; }
-    .h-hl .ac { color:var(--accent); }
-    .h-sub { font-size:clamp(1rem,1.8vw,1.25rem); font-weight:300; color:var(--muted); max-width:560px; margin:32px 0 48px; line-height:1.7; animation:fsu 1s .2s ease both; }
-    .h-ctas { display:flex; gap:16px; flex-wrap:wrap; animation:fsu 1s .3s ease both; }
-    .h-stats { display:flex; gap:48px; margin-top:80px; animation:fsu 1s .4s ease both; }
-    .stat-n { font-family:var(--fd); font-size:2.5rem; font-weight:800; letter-spacing:-.04em; line-height:1; }
-    .stat-n span { color:var(--accent); }
-    .stat-l { font-size:.8rem; color:var(--muted); margin-top:4px; letter-spacing:.03em; }
-    .h-blob { position:absolute; top:-10%; right:-15%; width:700px; height:700px; background:radial-gradient(circle,rgba(200,240,96,.06) 0%,transparent 70%); border-radius:50%; pointer-events:none; z-index:1; }
-    .h-blob2 { position:absolute; bottom:0; left:-10%; width:500px; height:500px; background:radial-gradient(circle,rgba(200,240,96,.04) 0%,transparent 70%); border-radius:50%; pointer-events:none; z-index:1; }
-    @keyframes fsu { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
-
-    /* marquee */
-    .mq-wrap { overflow:hidden; border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:18px 0; margin-top:80px; }
-    .mq-track { display:flex; animation:mq 28s linear infinite; white-space:nowrap; }
-    .mq-item { display:inline-flex; align-items:center; gap:24px; padding:0 32px; font-family:var(--fd); font-size:.8rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
-    .mq-dot { width:5px; height:5px; background:var(--accent); border-radius:50%; flex-shrink:0; }
-    @keyframes mq { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-
-    /* about */
-    #about { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
-    .sk-grid { display:flex; flex-wrap:wrap; gap:10px; }
-    .sk-pill { background:var(--card); border:1px solid var(--border); color:var(--text); font-size:.8rem; font-weight:500; padding:6px 14px; border-radius:100px; letter-spacing:.02em; transition:border-color var(--t),background var(--t),color var(--t); cursor:default; }
-    .sk-pill:hover { border-color:var(--accent); background:var(--accent2); color:var(--accent); }
-    .a-card { background:var(--card); border:1px solid var(--border); border-radius:var(--r); overflow:hidden; }
-    .a-card-img { width:100%; aspect-ratio:3/4; background:linear-gradient(135deg,#1a1a1a 0%,#222 50%,#1a1f10 100%); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
-    .a-card-img::after { content:''; position:absolute; inset:0; background:linear-gradient(to bottom,transparent 50%,var(--card) 100%); }
-    .initials { width:140px; height:140px; border-radius:50%; background:var(--accent2); border:2px solid rgba(200,240,96,.3); display:flex; align-items:center; justify-content:center; font-family:var(--fd); font-size:2.8rem; font-weight:800; color:var(--accent); letter-spacing:-.04em; z-index:2; position:relative; }
-    .a-card-body { padding:24px; }
-    .a-card-name { font-family:var(--fd); font-size:1.2rem; font-weight:700; margin-bottom:4px; }
-    .a-card-role { font-size:.85rem; color:var(--accent); margin-bottom:16px; }
-    .avail { display:inline-flex; align-items:center; gap:7px; background:rgba(74,222,128,.1); border:1px solid rgba(74,222,128,.2); color:#4ade80; font-size:.75rem; font-weight:500; padding:5px 12px; border-radius:100px; }
-    .avail::before { content:''; width:6px; height:6px; background:#4ade80; border-radius:50%; animation:pulse 2s infinite; }
-
-    /* experience */
-    .exp-grid { display:grid; grid-template-columns:1fr 2fr; gap:80px; }
-    .timeline { display:flex; flex-direction:column; position:relative; }
-    .timeline::before { content:''; position:absolute; left:0; top:0; bottom:0; width:1px; background:linear-gradient(to bottom,var(--accent),transparent); }
-    .tl-item { padding:0 0 48px 32px; position:relative; opacity:0; transform:translateY(20px); transition:opacity .5s ease,transform .5s ease; }
-    .tl-item.visible { opacity:1; transform:none; }
-    .tl-dot { position:absolute; left:-5px; top:6px; width:10px; height:10px; background:var(--accent); border-radius:50%; border:2px solid var(--bg); }
-    .tl-period { font-size:.75rem; color:var(--accent); font-weight:600; letter-spacing:.06em; text-transform:uppercase; margin-bottom:8px; }
-    .tl-role { font-family:var(--fd); font-size:1.15rem; font-weight:700; letter-spacing:-.02em; margin-bottom:4px; }
-    .tl-co { font-size:.9rem; color:var(--muted); margin-bottom:12px; }
-    .tl-desc { font-size:.9rem; color:var(--muted); line-height:1.7; }
-
-    /* process */
-    #process { border-top:1px solid var(--border); }
-    .proc-hd { display:grid; grid-template-columns:1fr 1fr; gap:80px; margin-bottom:72px; align-items:end; }
-    .proc-steps { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
-    .proc-card { background:var(--card); padding:40px 36px; position:relative; overflow:hidden; transition:background var(--t); }
-    .proc-card:hover { background:var(--bg3); }
-    .proc-card:nth-child(1) { border-radius:var(--r) 0 0 0; }
-    .proc-card:nth-child(2) { border-radius:0 var(--r) 0 0; }
-    .proc-card:nth-child(3) { border-radius:0 0 0 var(--r); }
-    .proc-card:nth-child(4) { border-radius:0 0 var(--r) 0; }
-    .proc-n { font-family:var(--fd); font-size:3.5rem; font-weight:800; letter-spacing:-.06em; color:rgba(200,240,96,.07); line-height:1; margin-bottom:24px; transition:color var(--t); }
-    .proc-card:hover .proc-n { color:rgba(200,240,96,.14); }
-    .proc-title { font-family:var(--fd); font-size:1.1rem; font-weight:700; margin-bottom:12px; }
-    .proc-desc { font-size:.9rem; color:var(--muted); line-height:1.7; }
-    .proc-tag { position:absolute; top:20px; right:20px; font-size:.7rem; color:var(--dim); letter-spacing:.08em; text-transform:uppercase; }
-
-    /* projects preview on homepage */
-    #proj-preview {}
-    .pp-hd { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:56px; gap:24px; }
-    .pp-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
-    .pc { background:var(--card); border:1px solid var(--border); border-radius:var(--r); overflow:hidden; position:relative; text-decoration:none; color:inherit; display:block; transition:border-color var(--t),transform var(--t); }
-    .pc:hover { border-color:var(--border-h); transform:translateY(-4px); }
-    .pc.feat { grid-column:1/-1; }
-    .pc-img { width:100%; aspect-ratio:16/9; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
-    .pc.feat .pc-img { aspect-ratio:2.5/1; }
-    .bg1 { background:linear-gradient(135deg,#0d1a0a 0%,#1a2d10 50%,#0d1509 100%); }
-    .bg2 { background:linear-gradient(135deg,#0a0d1a 0%,#101528 50%,#0a0d14 100%); }
-    .bg3 { background:linear-gradient(135deg,#1a0a0d 0%,#2d1015 50%,#140a0d 100%); }
-    .bg4 { background:linear-gradient(135deg,#0d0a1a 0%,#181028 50%,#0d0a14 100%); }
-    .pc-icon { width:56px; height:56px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; position:relative; z-index:2; }
-    .pc-body { padding:24px; }
-    .pc-tags { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
-    .pc-tag { font-size:.7rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); background:var(--accent2); padding:3px 10px; border-radius:100px; }
-    .pc-title { font-family:var(--fd); font-size:1.1rem; font-weight:700; letter-spacing:-.02em; margin-bottom:8px; }
-    .pc-desc { font-size:.875rem; color:var(--muted); line-height:1.6; }
-    .pc-arrow { position:absolute; top:20px; right:20px; width:32px; height:32px; background:var(--accent2); border:1px solid rgba(200,240,96,.2); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--accent); font-size:.9rem; opacity:0; transform:translate(4px,-4px); transition:opacity var(--t),transform var(--t); }
-    .pc:hover .pc-arrow { opacity:1; transform:translate(0,0); }
-
-    /* services */
-    #services { border-top:1px solid var(--border); }
-    .svc-hd { display:grid; grid-template-columns:1fr 1fr; gap:80px; margin-bottom:64px; align-items:end; }
-    .svc-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
-    .svc-card { background:var(--card); border:1px solid var(--border); border-radius:var(--r); padding:32px; transition:border-color var(--t),background var(--t),transform var(--t); }
-    .svc-card:hover { border-color:rgba(200,240,96,.25); background:var(--bg3); transform:translateY(-4px); }
-    .svc-icon { width:48px; height:48px; background:var(--accent2); border:1px solid rgba(200,240,96,.2); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; margin-bottom:20px; }
-    .svc-title { font-family:var(--fd); font-size:1rem; font-weight:700; margin-bottom:10px; }
-    .svc-desc { font-size:.875rem; color:var(--muted); line-height:1.7; }
-
-    /* contact */
-    #contact { border-top:1px solid var(--border); }
-    .ct-inner { background:var(--card); border:1px solid var(--border); border-radius:24px; padding:80px; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; position:relative; overflow:hidden; }
-    .ct-inner::before { content:''; position:absolute; top:-50%; right:-20%; width:500px; height:500px; background:radial-gradient(circle,rgba(200,240,96,.05) 0%,transparent 70%); border-radius:50%; pointer-events:none; }
-    .ct-big { font-family:var(--fd); font-size:clamp(2.5rem,4vw,3.5rem); font-weight:800; letter-spacing:-.04em; line-height:1.1; margin-bottom:20px; }
-    .ct-big .ac { color:var(--accent); }
-    .ct-sub { font-size:1rem; color:var(--muted); line-height:1.7; margin-bottom:40px; }
-    .ct-links { display:flex; flex-direction:column; gap:12px; }
-    .ct-link { display:flex; align-items:center; gap:12px; font-size:.9rem; color:var(--muted); text-decoration:none; padding:12px 16px; background:var(--bg3); border:1px solid var(--border); border-radius:var(--rs); transition:border-color var(--t),color var(--t),background var(--t); }
-    .ct-link:hover { border-color:rgba(200,240,96,.25); color:var(--text); background:var(--bg); }
-    .ct-link-ic { width:32px; height:32px; background:var(--accent2); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:.9rem; flex-shrink:0; }
-    .cf { display:flex; flex-direction:column; gap:16px; }
-    .fg { display:flex; flex-direction:column; gap:8px; }
-    .fl { font-size:.78rem; font-weight:500; letter-spacing:.04em; text-transform:uppercase; color:var(--muted); }
-    .fi, .fta { background:var(--bg3); border:1px solid var(--border); border-radius:var(--rs); color:var(--text); font-family:var(--fb); font-size:.95rem; padding:12px 16px; transition:border-color var(--t); outline:none; resize:none; }
-    .fi::placeholder, .fta::placeholder { color:var(--dim); }
-    .fi:focus, .fta:focus { border-color:rgba(200,240,96,.4); }
-    .fta { min-height:120px; }
-
-    /* footer */
-    footer { border-top:1px solid var(--border); padding:48px 60px; max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
-    .ft-logo { font-family:var(--fd); font-weight:800; font-size:1.1rem; letter-spacing:-.02em; color:var(--text); text-decoration:none; }
-    .ft-logo span { color:var(--accent); }
-    .ft-copy { font-size:.8rem; color:var(--dim); }
-    .ft-soc { display:flex; gap:12px; }
-    .ft-s { width:36px; height:36px; background:var(--card); border:1px solid var(--border); border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none; color:var(--muted); font-size:.85rem; transition:border-color var(--t),color var(--t); }
-    .ft-s:hover { border-color:var(--accent); color:var(--accent); }
-
-    /* reveal */
-    .rv { opacity:0; transform:translateY(28px); transition:opacity .6s ease,transform .6s ease; }
-    .rv.visible { opacity:1; transform:none; }
-    .d1{transition-delay:.1s} .d2{transition-delay:.2s} .d3{transition-delay:.3s} .d4{transition-delay:.4s}
-
-    /* responsive */
-    @media(max-width:1024px){
-      nav{padding:20px 32px;} .n-links,.n-cta{display:none;} .n-ham{display:flex;}
-      section{padding:80px 32px;} .h-inner{padding:0 32px;}
-      #about{grid-template-columns:1fr;gap:48px;} .a-right{order:-1;} .a-card-img{aspect-ratio:3/1.5;}
-      .exp-grid{grid-template-columns:1fr;gap:40px;}
-      .proc-hd{grid-template-columns:1fr;gap:24px;} .proc-steps{grid-template-columns:1fr 1fr;}
-      .pp-grid{grid-template-columns:1fr;} .pc.feat{grid-column:unset;}
-      .svc-hd{grid-template-columns:1fr;gap:24px;} .svc-grid{grid-template-columns:1fr 1fr;}
-      .ct-inner{grid-template-columns:1fr;gap:48px;padding:48px 32px;}
-      footer{flex-direction:column;gap:24px;text-align:center;padding:40px 32px;}
-    }
-    @media(max-width:640px){
-      .h-hl{font-size:3rem;} .h-stats{gap:28px;}
-      .proc-steps{grid-template-columns:1fr;} .svc-grid{grid-template-columns:1fr;}
-    }
-  </style>
+  <link rel="stylesheet" href="/assets/style.css" />
 </head>
 <body>
+
   <div class="cur" id="cur"></div>
   <div class="cur-r" id="curR"></div>
 
+  <!-- Mobile Menu -->
   <div class="mob-menu" id="mobMenu">
     <button class="mob-close" id="mobClose">✕</button>
     <a href="index.html" onclick="closeMob()">Home</a>
     <a href="works.html" onclick="closeMob()">Works</a>
-    <a href="#about" onclick="closeMob()">About</a>
+    <a href="#about"   onclick="closeMob()">About</a>
     <a href="#contact" onclick="closeMob()">Contact</a>
   </div>
 
+  <!-- Nav -->
   <nav id="nav">
     <a href="index.html" class="n-logo">alif<span>.</span></a>
     <ul class="n-links">
@@ -235,9 +38,10 @@
     <button class="n-ham" id="ham"><span></span><span></span><span></span></button>
   </nav>
 
-  <!-- HERO -->
+  <!-- ── HERO ── -->
   <div id="hero">
-    <div class="h-blob"></div><div class="h-blob2"></div>
+    <div class="h-blob"></div>
+    <div class="h-blob2"></div>
     <div class="h-inner">
       <div class="h-badge">UI/UX &amp; GIS Product Designer</div>
       <h1 class="h-hl">
@@ -248,7 +52,7 @@
       <p class="h-sub">Designing intuitive, scalable digital experiences with a focus on spatial data, enterprise systems, and user-centered solutions — bridging GIS with beautiful UX.</p>
       <div class="h-ctas">
         <a href="works.html" class="btn-p">See My Work →</a>
-        <a href="#contact" class="btn-s">Get In Touch</a>
+        <a href="#contact"  class="btn-s">Get In Touch</a>
       </div>
       <div class="h-stats">
         <div><div class="stat-n">3<span>+</span></div><div class="stat-l">Years Experience</div></div>
@@ -256,6 +60,7 @@
         <div><div class="stat-n">5<span>+</span></div><div class="stat-l">Industry Sectors</div></div>
       </div>
     </div>
+    <!-- Marquee -->
     <div class="mq-wrap">
       <div class="mq-track">
         <span class="mq-item"><span class="mq-dot"></span>UI/UX Design</span>
@@ -278,7 +83,7 @@
     </div>
   </div>
 
-  <!-- ABOUT -->
+  <!-- ── ABOUT ── -->
   <section id="about">
     <div class="about-left">
       <p class="eyebrow rv">About Me</p>
@@ -286,17 +91,21 @@
       <p class="rv d2" style="color:var(--muted);font-size:1rem;line-height:1.8;margin-bottom:20px;">I'm Muhammad Alifian Rifqi — a UI/UX Designer with a strong foundation in Geographic Information Systems (GIS), based in Jakarta, Indonesia. I specialize in transforming complex spatial data into intuitive, user-friendly digital products.</p>
       <p class="rv d2" style="color:var(--muted);font-size:1rem;line-height:1.8;margin-bottom:32px;">With experience across enterprise platforms, dashboards, and web/mobile applications, I've worked across mining, forestry, transportation, and government sectors — collaborating with developers, geospatial engineers, and product managers to deliver scalable, impactful solutions.</p>
       <div class="sk-grid rv d3">
-        <span class="sk-pill">Figma (Advanced)</span><span class="sk-pill">Design Systems</span>
-        <span class="sk-pill">Wireframing</span><span class="sk-pill">Prototyping</span>
-        <span class="sk-pill">User Research</span><span class="sk-pill">GIS Applications</span>
-        <span class="sk-pill">Data Visualization</span><span class="sk-pill">HTML / CSS</span>
-        <span class="sk-pill">SuperMap iDesktop</span><span class="sk-pill">After Effects</span>
+        <span class="sk-pill">Figma (Advanced)</span>
+        <span class="sk-pill">Design Systems</span>
+        <span class="sk-pill">Wireframing</span>
+        <span class="sk-pill">Prototyping</span>
+        <span class="sk-pill">User Research</span>
+        <span class="sk-pill">GIS Applications</span>
+        <span class="sk-pill">Data Visualization</span>
+        <span class="sk-pill">HTML / CSS</span>
+        <span class="sk-pill">SuperMap iDesktop</span>
+        <span class="sk-pill">After Effects</span>
       </div>
     </div>
     <div class="a-right rv d2">
       <div class="a-card">
-        <!-- <div class="a-card-img"><div class="initials">AR</div></div> -->
-         <img src="/assets/images/profile.jpeg" style="width:100%;height:100%;object-fit:cover;" />
+        <div class="a-card-img"><div class="initials">AR</div></div>
         <div class="a-card-body">
           <div class="a-card-name">Muhammad Alifian Rifqi</div>
           <div class="a-card-role">UI/UX &amp; GIS Product Designer</div>
@@ -306,34 +115,38 @@
     </div>
   </section>
 
-  <!-- EXPERIENCE -->
+  <!-- ── EXPERIENCE ── -->
   <section id="experience" style="padding-top:40px;">
     <div class="exp-grid">
       <div>
         <p class="eyebrow rv">Career Path</p>
-        <h2 class="sec-title rv d1">Where I've<br><span class="ac">Worked</span><br>& Grown.</h2>
+        <h2 class="sec-title rv d1">Where I've<br><span class="ac">Worked</span><br>&amp; Grown.</h2>
         <p class="rv d2" style="color:var(--muted);font-size:.9rem;line-height:1.7;margin-top:16px;">From spatial data internships to leading product design for enterprise GIS platforms.</p>
       </div>
       <div class="timeline">
-        <div class="tl-item"><div class="tl-dot"></div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
           <div class="tl-period">Jun 2024 – Present</div>
           <div class="tl-role">UI/UX Designer</div>
           <div class="tl-co">Barrakusuma Spatial Teknologi</div>
-          <div class="tl-desc">Designing and maintaining the Kala Enterprise design system. Collaborating with geospatial engineers on spatial applications for clients including Perhutani, PT Bukit Asam, and Badan Pendapatan Daerah Jakarta.</div>
+          <div class="tl-desc">Designing and maintaining the Kala Enterprise design system. Collaborating with geospatial engineers on spatial applications for Perhutani, PT Bukit Asam, and Badan Pendapatan Daerah Jakarta.</div>
         </div>
-        <div class="tl-item"><div class="tl-dot"></div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
           <div class="tl-period">Sep 2023 – May 2024</div>
           <div class="tl-role">UI/UX Designer – Technical Marketing</div>
           <div class="tl-co">SuperMap Software Co., Ltd</div>
           <div class="tl-desc">Contributed to UI/UX design for GIS and mapping applications. Created mockups, prototypes, and video demos for web, mobile, and dashboard platforms.</div>
         </div>
-        <div class="tl-item"><div class="tl-dot"></div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
           <div class="tl-period">Feb 2022 – Aug 2023</div>
           <div class="tl-role">Marketing Intern</div>
           <div class="tl-co">SuperMap Software Co., Ltd</div>
           <div class="tl-desc">Led redesign of the SuperMap Indonesia website. Managed social media design, branding, and contributed to international events (GTC).</div>
         </div>
-        <div class="tl-item"><div class="tl-dot"></div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
           <div class="tl-period">Dec 2020 – Feb 2021</div>
           <div class="tl-role">Land Surveyor Intern</div>
           <div class="tl-co">PT Eltra Wiratama Konsultan</div>
@@ -343,7 +156,7 @@
     </div>
   </section>
 
-  <!-- PROCESS -->
+  <!-- ── PROCESS ── -->
   <section id="process">
     <div class="proc-hd">
       <div>
@@ -356,14 +169,14 @@
       </div>
     </div>
     <div class="proc-steps rv">
-      <div class="proc-card"><div class="proc-n">01</div><div class="proc-tag">Step 01</div><div class="proc-title">Discover & Define</div><div class="proc-desc">Deep discovery sessions — understanding your users, business goals, and technical constraints. Mapping user journeys and defining the problem space.</div></div>
-      <div class="proc-card"><div class="proc-n">02</div><div class="proc-tag">Step 02</div><div class="proc-title">Wireframe & Design</div><div class="proc-desc">From low-fidelity wireframes to polished high-fidelity UI — crafting layouts, components, and interactions with full design system documentation.</div></div>
-      <div class="proc-card"><div class="proc-n">03</div><div class="proc-tag">Step 03</div><div class="proc-title">Prototype & Test</div><div class="proc-desc">Interactive prototypes bring the design to life. Validated with user testing, iterated on feedback, ensuring every interaction feels natural before development.</div></div>
-      <div class="proc-card"><div class="proc-n">04</div><div class="proc-tag">Step 04</div><div class="proc-title">Deliver & Support</div><div class="proc-desc">Full handoff with annotated specs, design tokens, component libraries, and developer documentation. Available for QA and support throughout implementation.</div></div>
+      <div class="proc-card"><div class="proc-n">01</div><div class="proc-tag">Step 01</div><div class="proc-title">Discover &amp; Define</div><div class="proc-desc">Deep discovery sessions — understanding your users, business goals, and technical constraints. Mapping user journeys and defining the problem space.</div></div>
+      <div class="proc-card"><div class="proc-n">02</div><div class="proc-tag">Step 02</div><div class="proc-title">Wireframe &amp; Design</div><div class="proc-desc">From low-fidelity wireframes to polished high-fidelity UI — crafting layouts, components, and interactions with full design system documentation.</div></div>
+      <div class="proc-card"><div class="proc-n">03</div><div class="proc-tag">Step 03</div><div class="proc-title">Prototype &amp; Test</div><div class="proc-desc">Interactive prototypes bring the design to life. Validated with user testing, iterated on feedback before development begins.</div></div>
+      <div class="proc-card"><div class="proc-n">04</div><div class="proc-tag">Step 04</div><div class="proc-title">Deliver &amp; Support</div><div class="proc-desc">Full handoff with annotated specs, design tokens, component libraries, and developer documentation. Available for QA and support throughout implementation.</div></div>
     </div>
   </section>
 
-  <!-- FEATURED PROJECTS PREVIEW -->
+  <!-- ── FEATURED PROJECTS ── -->
   <section id="proj-preview">
     <div class="pp-hd">
       <div>
@@ -374,13 +187,11 @@
     </div>
     <div class="pp-grid">
       <a href="projects/webgis-hospital.html" class="pc feat rv">
-        <div class="pc-img bg1">
-          <img src="/assets/images/1.png" style="width:100%;height:100%;object-fit:cover;" /></div>
-          
+        <div class="pc-img bg1"><div class="pc-icon" style="background:rgba(200,240,96,.12);border:1px solid rgba(200,240,96,.2);">🗺️</div></div>
         <div class="pc-body">
           <div class="pc-tags"><span class="pc-tag">GIS</span><span class="pc-tag">WebGIS</span><span class="pc-tag">UX Design</span></div>
           <div class="pc-title">WebGIS Hospital Finder – Semarang</div>
-          <div class="pc-desc">A web-based GIS application helping users find the nearest and most suitable hospital based on specialization and needs.</div>
+          <div class="pc-desc">A web-based GIS application helping users find the nearest, most suitable hospital based on specialization and needs.</div>
         </div>
         <div class="pc-arrow">↗</div>
       </a>
@@ -414,7 +225,7 @@
     </div>
   </section>
 
-  <!-- SERVICES -->
+  <!-- ── SERVICES ── -->
   <section id="services">
     <div class="svc-hd">
       <div>
@@ -427,16 +238,16 @@
       </div>
     </div>
     <div class="svc-grid">
-      <div class="svc-card rv"><div class="svc-icon">🗺️</div><div class="svc-title">GIS & Spatial UX Design</div><div class="svc-desc">Designing intuitive interfaces for complex spatial data systems — interactive maps, geospatial dashboards, and location-based applications.</div></div>
+      <div class="svc-card rv"><div class="svc-icon">🗺️</div><div class="svc-title">GIS &amp; Spatial UX Design</div><div class="svc-desc">Designing intuitive interfaces for complex spatial data systems — interactive maps, geospatial dashboards, and location-based applications.</div></div>
       <div class="svc-card rv d1"><div class="svc-icon">📐</div><div class="svc-title">Enterprise Product Design</div><div class="svc-desc">End-to-end product design for enterprise platforms — user research, information architecture, wireframes, and high-fidelity UI.</div></div>
       <div class="svc-card rv d2"><div class="svc-icon">🧩</div><div class="svc-title">Design Systems</div><div class="svc-desc">Building scalable, composable design systems with component libraries, visual guidelines, light/dark modes, and developer-ready documentation.</div></div>
-      <div class="svc-card rv d1"><div class="svc-icon">📊</div><div class="svc-title">Dashboard & Data Viz</div><div class="svc-desc">Designing clear, insightful dashboards that transform raw data into meaningful visuals — charts, KPIs, and operational views.</div></div>
-      <div class="svc-card rv d2"><div class="svc-icon">📱</div><div class="svc-title">Web & Mobile UI Design</div><div class="svc-desc">Responsive, pixel-perfect UI design for web and mobile platforms with strong attention to usability and visual quality.</div></div>
-      <div class="svc-card rv d3"><div class="svc-icon">🎬</div><div class="svc-title">UX Research & Docs</div><div class="svc-desc">User journey mapping, pain point identification, UX reports, and handoff documentation bridging design and development.</div></div>
+      <div class="svc-card rv d1"><div class="svc-icon">📊</div><div class="svc-title">Dashboard &amp; Data Viz</div><div class="svc-desc">Designing clear, insightful dashboards that transform raw data into meaningful visuals — charts, KPIs, and operational views.</div></div>
+      <div class="svc-card rv d2"><div class="svc-icon">📱</div><div class="svc-title">Web &amp; Mobile UI Design</div><div class="svc-desc">Responsive, pixel-perfect UI design for web and mobile platforms with strong attention to usability and visual quality.</div></div>
+      <div class="svc-card rv d3"><div class="svc-icon">🎬</div><div class="svc-title">UX Research &amp; Docs</div><div class="svc-desc">User journey mapping, pain point identification, UX reports, and handoff documentation bridging design and development.</div></div>
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- ── CONTACT ── -->
   <section id="contact">
     <div class="ct-inner">
       <div>
@@ -446,7 +257,7 @@
         <div class="ct-links">
           <a href="mailto:uiux.alif@gmail.com" class="ct-link"><div class="ct-link-ic">✉️</div>uiux.alif@gmail.com</a>
           <a href="tel:08115490273" class="ct-link"><div class="ct-link-ic">📱</div>08115490273</a>
-          <a href="https://bit.ly/Alifian-UIUX-Portfolio" target="_blank" class="ct-link"><div class="ct-link-ic">🔗</div>View Full Portfolio ↗</a>
+          <a href="https://bit.ly/Alifian-UIUX-Portfolio" target="_blank" rel="noopener" class="ct-link"><div class="ct-link-ic">🔗</div>View Full Portfolio ↗</a>
           <div class="ct-link" style="cursor:default;"><div class="ct-link-ic">📍</div>Jakarta, Indonesia</div>
         </div>
       </div>
@@ -464,8 +275,8 @@
     <a href="index.html" class="ft-logo">alif<span>.</span></a>
     <div class="ft-copy">© 2025 Muhammad Alifian Rifqi. Designed with care in Jakarta.</div>
     <div class="ft-soc">
-      <a href="mailto:uiux.alif@gmail.com" class="ft-s" title="Email">✉</a>
-      <a href="https://bit.ly/Alifian-UIUX-Portfolio" target="_blank" class="ft-s" title="Portfolio">🔗</a>
+      <a href="mailto:uiux.alif@gmail.com" class="ft-s">✉</a>
+      <a href="https://bit.ly/Alifian-UIUX-Portfolio" target="_blank" rel="noopener" class="ft-s">🔗</a>
     </div>
   </footer>
 
@@ -473,7 +284,7 @@
     const cur=document.getElementById('cur'),curR=document.getElementById('curR');
     let mx=0,my=0,rx=0,ry=0;
     document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
-    (function animR(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(animR);})();
+    (function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(a);})();
     document.querySelectorAll('a,button,.pc,.svc-card').forEach(el=>{
       el.addEventListener('mouseenter',()=>{cur.style.width='16px';cur.style.height='16px';curR.style.width='48px';curR.style.height='48px';curR.style.opacity='.8';});
       el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';curR.style.width='36px';curR.style.height='36px';curR.style.opacity='.45';});
@@ -483,7 +294,7 @@
     document.getElementById('ham').addEventListener('click',()=>document.getElementById('mobMenu').classList.add('open'));
     document.getElementById('mobClose').addEventListener('click',()=>document.getElementById('mobMenu').classList.remove('open'));
     function closeMob(){document.getElementById('mobMenu').classList.remove('open');}
-    const obs=new IntersectionObserver(entries=>entries.forEach(e=>e.isIntersecting&&e.target.classList.add('visible')),{threshold:.1,rootMargin:'0px 0px -60px 0px'});
+    const obs=new IntersectionObserver(e=>e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');}),{threshold:.1,rootMargin:'0px 0px -60px 0px'});
     document.querySelectorAll('.rv,.tl-item').forEach((el,i)=>{if(el.classList.contains('tl-item'))el.style.transitionDelay=`${i*.1}s`;obs.observe(el);});
     document.getElementById('fsend').addEventListener('click',e=>{
       const n=document.getElementById('name').value,em=document.getElementById('email').value,p=document.getElementById('proj').value,m=document.getElementById('msg').value;
