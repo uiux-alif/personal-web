@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Works – Alifian Rifqi</title>
+  <meta name="description" content="All projects by Muhammad Alifian Rifqi — UI/UX & GIS Product Designer." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:#0a0a0a;--bg2:#111;--bg3:#181818;--card:#161616;
+      --border:rgba(255,255,255,0.08);--border-h:rgba(255,255,255,0.16);
+      --text:#f0ede8;--muted:#8a8680;--dim:#444240;
+      --accent:#c8f060;--accent2:rgba(200,240,96,0.12);--accent-glow:rgba(200,240,96,0.22);
+      --fd:'Syne',sans-serif;--fb:'DM Sans',sans-serif;
+      --r:16px;--rs:10px;--t:0.32s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--text);font-family:var(--fb);font-size:16px;line-height:1.6;overflow-x:hidden;cursor:none;}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.025;pointer-events:none;z-index:9990;}
+    .cur{position:fixed;width:10px;height:10px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:difference;}
+    .cur-r{position:fixed;width:36px;height:36px;border:1.5px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.45;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 60px;background:rgba(10,10,10,0.75);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);}
+    .n-logo{font-family:var(--fd);font-weight:800;font-size:1.2rem;letter-spacing:-.02em;color:var(--text);text-decoration:none;}
+    .n-logo span{color:var(--accent);}
+    .n-links{display:flex;gap:36px;list-style:none;}
+    .n-links a{font-size:.875rem;color:var(--muted);text-decoration:none;letter-spacing:.02em;transition:color var(--t);}
+    .n-links a:hover,.n-links a.active{color:var(--text);}
+    .n-cta{background:var(--accent);color:#0a0a0a;font-family:var(--fd);font-weight:700;font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;padding:10px 22px;border-radius:100px;transition:background var(--t),transform var(--t);}
+    .n-cta:hover{background:#d9ff70;transform:translateY(-1px);}
+    .n-ham{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+    .n-ham span{display:block;width:24px;height:1.5px;background:var(--text);}
+    .mob-menu{display:none;position:fixed;inset:0;background:var(--bg);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:32px;}
+    .mob-menu.open{display:flex;}
+    .mob-menu a{font-family:var(--fd);font-size:2rem;font-weight:700;color:var(--text);text-decoration:none;transition:color .2s;}
+    .mob-menu a:hover{color:var(--accent);}
+    .mob-close{position:absolute;top:24px;right:28px;background:none;border:none;cursor:pointer;font-size:1.8rem;color:var(--text);}
+    .btn-p{background:var(--accent);color:#0a0a0a;font-family:var(--fd);font-weight:700;font-size:.875rem;letter-spacing:.03em;padding:14px 32px;border-radius:100px;text-decoration:none;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background var(--t),transform var(--t),box-shadow var(--t);}
+    .btn-p:hover{background:#d9ff70;transform:translateY(-2px);box-shadow:0 12px 40px var(--accent-glow);}
+    .btn-s{background:transparent;color:var(--text);font-family:var(--fd);font-weight:600;font-size:.875rem;letter-spacing:.03em;padding:13px 32px;border-radius:100px;text-decoration:none;border:1px solid var(--border);cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:border-color var(--t),background var(--t),transform var(--t);}
+    .btn-s:hover{border-color:var(--border-h);background:rgba(255,255,255,.04);transform:translateY(-2px);}
+
+    /* Page header */
+    .page-hero{padding:160px 60px 80px;max-width:1200px;margin:0 auto;}
+    .ph-label{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;}
+    .ph-title{font-family:var(--fd);font-size:clamp(3rem,6vw,5.5rem);font-weight:800;line-height:1;letter-spacing:-.04em;margin-bottom:24px;animation:fsu .8s ease both;}
+    .ph-title .ac{color:var(--accent);}
+    .ph-sub{font-size:1.1rem;color:var(--muted);max-width:520px;line-height:1.7;animation:fsu .9s .1s ease both;}
+    @keyframes fsu{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+    /* filters */
+    .filters-wrap{padding:0 60px 48px;max-width:1200px;margin:0 auto;}
+    .filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+    .filter-btn{font-family:var(--fd);font-size:.8rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:8px 18px;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all var(--t);}
+    .filter-btn:hover{border-color:var(--border-h);color:var(--text);}
+    .filter-btn.active{background:var(--accent);color:#0a0a0a;border-color:var(--accent);}
+    .filter-count{font-family:var(--fd);font-size:.75rem;color:var(--dim);margin-left:auto;}
+
+    /* works grid */
+    .works-wrap{padding:0 60px 80px;max-width:1200px;margin:0 auto;}
+    .works-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+
+    /* project card */
+    .wc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;text-decoration:none;color:inherit;display:block;transition:border-color var(--t),transform var(--t);opacity:0;transform:translateY(20px);}
+    .wc.visible{opacity:1;transform:none;}
+    .wc.hidden{display:none;}
+    .wc:hover{border-color:var(--border-h);transform:translateY(-5px);}
+    .wc.large{grid-column:span 2;}
+    .wc-img{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+    .wc.large .wc-img{aspect-ratio:21/9;}
+    .bg1{background:linear-gradient(135deg,#0d1a0a 0%,#1a2d10 50%,#0d1509 100%);}
+    .bg2{background:linear-gradient(135deg,#0a0d1a 0%,#101528 50%,#0a0d14 100%);}
+    .bg3{background:linear-gradient(135deg,#1a0a0d 0%,#2d1015 50%,#140a0d 100%);}
+    .bg4{background:linear-gradient(135deg,#0d0a1a 0%,#181028 50%,#0d0a14 100%);}
+    .bg5{background:linear-gradient(135deg,#0a1a15 0%,#102820 50%,#0a1a10 100%);}
+    .bg6{background:linear-gradient(135deg,#1a140a 0%,#2d200d 50%,#140e05 100%);}
+    .wc-icon{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;position:relative;z-index:2;}
+    .wc-body{padding:22px;}
+    .wc-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+    .wc-tag{font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:var(--accent2);padding:3px 9px;border-radius:100px;}
+    .wc-title{font-family:var(--fd);font-size:1.05rem;font-weight:700;letter-spacing:-.02em;margin-bottom:6px;}
+    .wc-desc{font-size:.85rem;color:var(--muted);line-height:1.6;}
+    .wc-footer{padding:0 22px 22px;display:flex;align-items:center;justify-content:space-between;}
+    .wc-year{font-size:.75rem;color:var(--dim);letter-spacing:.06em;}
+    .wc-arr{width:28px;height:28px;background:var(--accent2);border:1px solid rgba(200,240,96,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:.8rem;opacity:0;transform:translate(4px,-4px);transition:opacity var(--t),transform var(--t);}
+    .wc:hover .wc-arr{opacity:1;transform:translate(0,0);}
+
+    /* CTA band */
+    .cta-band{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:80px 60px;margin-top:40px;}
+    .cta-band-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:40px;}
+    .cta-band-title{font-family:var(--fd);font-size:clamp(1.8rem,3vw,2.5rem);font-weight:800;letter-spacing:-.03em;}
+    .cta-band-title .ac{color:var(--accent);}
+    .cta-band-sub{font-size:.95rem;color:var(--muted);margin-top:8px;}
+
+    footer{border-top:1px solid var(--border);padding:48px 60px;max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+    .ft-logo{font-family:var(--fd);font-weight:800;font-size:1.1rem;letter-spacing:-.02em;color:var(--text);text-decoration:none;}
+    .ft-logo span{color:var(--accent);}
+    .ft-copy{font-size:.8rem;color:var(--dim);}
+    .ft-soc{display:flex;gap:12px;}
+    .ft-s{width:36px;height:36px;background:var(--card);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--muted);font-size:.85rem;transition:border-color var(--t),color var(--t);}
+    .ft-s:hover{border-color:var(--accent);color:var(--accent);}
+
+    @media(max-width:1024px){
+      nav{padding:20px 32px;} .n-links,.n-cta{display:none;} .n-ham{display:flex;}
+      .page-hero,.filters-wrap,.works-wrap{padding-left:32px;padding-right:32px;}
+      .works-grid{grid-template-columns:1fr 1fr;} .wc.large{grid-column:1/-1;}
+      .cta-band{padding:60px 32px;} .cta-band-inner{flex-direction:column;text-align:center;}
+      footer{flex-direction:column;gap:24px;text-align:center;padding:40px 32px;}
+    }
+    @media(max-width:640px){
+      .works-grid{grid-template-columns:1fr;} .wc.large{grid-column:unset;}
+      .ph-title{font-size:2.8rem;}
+    }
+  </style>
+</head>
+<body>
+  <div class="cur" id="cur"></div>
+  <div class="cur-r" id="curR"></div>
+
+  <div class="mob-menu" id="mobMenu">
+    <button class="mob-close" id="mobClose">✕</button>
+    <a href="index.html" onclick="closeMob()">Home</a>
+    <a href="works.html" onclick="closeMob()">Works</a>
+    <a href="index.html#about" onclick="closeMob()">About</a>
+    <a href="index.html#contact" onclick="closeMob()">Contact</a>
+  </div>
+
+  <nav>
+    <a href="index.html" class="n-logo">alif<span>.</span></a>
+    <ul class="n-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="works.html" class="active">Works</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#experience">Experience</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <a href="mailto:uiux.alif@gmail.com" class="n-cta">Let's Talk</a>
+    <button class="n-ham" id="ham"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <p class="ph-label">Selected Work</p>
+    <h1 class="ph-title">All <span class="ac">Projects.</span></h1>
+    <p class="ph-sub">A collection of work spanning GIS applications, enterprise dashboards, product design, and UX redesigns across multiple industries.</p>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters-wrap">
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="gis">GIS / Spatial</button>
+      <button class="filter-btn" data-filter="ux">UX Redesign</button>
+      <button class="filter-btn" data-filter="product">Product Design</button>
+      <button class="filter-btn" data-filter="data">Data Viz</button>
+      <span class="filter-count" id="countLabel">4 projects</span>
+    </div>
+  </div>
+
+  <!-- Works Grid -->
+  <div class="works-wrap">
+    <div class="works-grid" id="worksGrid">
+
+      <!-- 1. WebGIS Hospital -->
+      <a href="projects/webgis-hospital.html" class="wc large visible" data-cats="gis">
+        <div class="wc-img bg1"><div class="wc-icon" style="background:rgba(200,240,96,.12);border:1px solid rgba(200,240,96,.2);">🗺️</div></div>
+        <div class="wc-body">
+          <div class="wc-tags"><span class="wc-tag">GIS</span><span class="wc-tag">WebGIS</span><span class="wc-tag">UX Design</span><span class="wc-tag">Featured</span></div>
+          <div class="wc-title">WebGIS Hospital Finder – Semarang</div>
+          <div class="wc-desc">A web-based GIS application helping users find the nearest and most suitable hospital based on specialization and needs. Designed end-to-end with geospatial filtering, interactive map navigation, and full UX documentation.</div>
+        </div>
+        <div class="wc-footer"><span class="wc-year">2023</span><div class="wc-arr">↗</div></div>
+      </a>
+
+      <!-- 2. Shopee Food -->
+      <a href="projects/shopee-food.html" class="wc visible" data-cats="ux">
+        <div class="wc-img bg2"><div class="wc-icon" style="background:rgba(99,149,255,.12);border:1px solid rgba(99,149,255,.2);">🛍️</div></div>
+        <div class="wc-body">
+          <div class="wc-tags"><span class="wc-tag">UX Redesign</span><span class="wc-tag">Mobile</span></div>
+          <div class="wc-title">Shopee Food UX Redesign</div>
+          <div class="wc-desc">Redesigned the food delivery interface to improve usability and modernize the experience — cleaner navigation and more intuitive ordering flows.</div>
+        </div>
+        <div class="wc-footer"><span class="wc-year">2023</span><div class="wc-arr">↗</div></div>
+      </a>
+
+      <!-- 3. Split Payment -->
+      <a href="projects/split-payment.html" class="wc visible" data-cats="product">
+        <div class="wc-img bg3"><div class="wc-icon" style="background:rgba(255,140,99,.12);border:1px solid rgba(255,140,99,.2);">💳</div></div>
+        <div class="wc-body">
+          <div class="wc-tags"><span class="wc-tag">Product Design</span><span class="wc-tag">FinTech</span></div>
+          <div class="wc-title">Split Payment Feature</div>
+          <div class="wc-desc">Designed a seamless bill-splitting experience to improve transaction flexibility and convenience from ideation to interactive prototype.</div>
+        </div>
+        <div class="wc-footer"><span class="wc-year">2023</span><div class="wc-arr">↗</div></div>
+      </a>
+
+      <!-- 4. Peta Vaksin -->
+      <a href="projects/peta-vaksin.html" class="wc large visible" data-cats="gis data">
+        <div class="wc-img bg4"><div class="wc-icon" style="background:rgba(180,99,255,.12);border:1px solid rgba(180,99,255,.2);">💉</div></div>
+        <div class="wc-body">
+          <div class="wc-tags"><span class="wc-tag">WebGIS</span><span class="wc-tag">Data Viz</span><span class="wc-tag">Best Group Award</span></div>
+          <div class="wc-title">Peta Vaksin Indonesia</div>
+          <div class="wc-desc">Interactive web map visualizing COVID-19 vaccination progress across all Indonesian provinces. Won Best Group Award. Choropleth maps, spatial data visualization, and responsive dashboard design.</div>
+        </div>
+        <div class="wc-footer"><span class="wc-year">2022</span><div class="wc-arr">↗</div></div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- CTA Band -->
+  <div class="cta-band">
+    <div class="cta-band-inner">
+      <div>
+        <div class="cta-band-title">Have a project in mind?<br>Let's <span class="ac">build it together.</span></div>
+        <div class="cta-band-sub">Open to freelance, full-time, and collaborative opportunities.</div>
+      </div>
+      <div style="display:flex;gap:16px;flex-shrink:0;flex-wrap:wrap;">
+        <a href="mailto:uiux.alif@gmail.com" class="btn-p">Get in Touch →</a>
+        <a href="index.html#about" class="btn-s">Learn About Me</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <a href="index.html" class="ft-logo">alif<span>.</span></a>
+    <div class="ft-copy">© 2025 Muhammad Alifian Rifqi. Designed with care in Jakarta.</div>
+    <div class="ft-soc">
+      <a href="mailto:uiux.alif@gmail.com" class="ft-s">✉</a>
+      <a href="https://bit.ly/Alifian-UIUX-Portfolio" target="_blank" class="ft-s">🔗</a>
+    </div>
+  </footer>
+
+  <script>
+    const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+    (function anim(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(anim);})();
+    document.querySelectorAll('a,button,.wc').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{cur.style.width='16px';cur.style.height='16px';curR.style.width='48px';curR.style.height='48px';curR.style.opacity='.8';});
+      el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';curR.style.width='36px';curR.style.height='36px';curR.style.opacity='.45';});
+    });
+    document.getElementById('ham').addEventListener('click',()=>document.getElementById('mobMenu').classList.add('open'));
+    document.getElementById('mobClose').addEventListener('click',()=>document.getElementById('mobMenu').classList.remove('open'));
+    function closeMob(){document.getElementById('mobMenu').classList.remove('open');}
+
+    // Filters
+    const cards=[...document.querySelectorAll('.wc')];
+    const countLbl=document.getElementById('countLabel');
+    document.querySelectorAll('.filter-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        const f=btn.dataset.filter;
+        let visible=0;
+        cards.forEach((c,i)=>{
+          const cats=c.dataset.cats||'';
+          const show=f==='all'||cats.includes(f);
+          c.classList.toggle('hidden',!show);
+          if(show){visible++;setTimeout(()=>c.classList.add('visible'),i*60);}
+        });
+        countLbl.textContent=`${visible} project${visible!==1?'s':''}`;
+      });
+    });
+
+    // Scroll reveal
+    const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.08});
+    cards.forEach(c=>obs.observe(c));
+  </script>
+</body>
+</html>

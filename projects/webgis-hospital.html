@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WebGIS Hospital Finder – Alifian Rifqi</title>
+  <meta name="description" content="Case study: WebGIS Hospital Finder Semarang — UI/UX Design by Muhammad Alifian Rifqi." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:#0a0a0a;--bg2:#111;--bg3:#181818;--card:#161616;
+      --border:rgba(255,255,255,0.08);--border-h:rgba(255,255,255,0.16);
+      --text:#f0ede8;--muted:#8a8680;--dim:#444240;
+      --accent:#c8f060;--accent2:rgba(200,240,96,0.12);--accent-glow:rgba(200,240,96,0.22);
+      --fd:'Syne',sans-serif;--fb:'DM Sans',sans-serif;
+      --r:16px;--rs:10px;--t:0.32s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--text);font-family:var(--fb);font-size:16px;line-height:1.6;overflow-x:hidden;cursor:none;}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.025;pointer-events:none;z-index:9990;}
+    .cur{position:fixed;width:10px;height:10px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:difference;}
+    .cur-r{position:fixed;width:36px;height:36px;border:1.5px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.45;}
+
+    /* nav */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 60px;background:rgba(10,10,10,0.75);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);}
+    .n-logo{font-family:var(--fd);font-weight:800;font-size:1.2rem;letter-spacing:-.02em;color:var(--text);text-decoration:none;}
+    .n-logo span{color:var(--accent);}
+    .n-links{display:flex;gap:36px;list-style:none;}
+    .n-links a{font-size:.875rem;color:var(--muted);text-decoration:none;letter-spacing:.02em;transition:color var(--t);}
+    .n-links a:hover{color:var(--text);}
+    .n-cta{background:var(--accent);color:#0a0a0a;font-family:var(--fd);font-weight:700;font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;padding:10px 22px;border-radius:100px;transition:background var(--t),transform var(--t);}
+    .n-cta:hover{background:#d9ff70;transform:translateY(-1px);}
+    .n-ham{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+    .n-ham span{display:block;width:24px;height:1.5px;background:var(--text);}
+    .mob-menu{display:none;position:fixed;inset:0;background:var(--bg);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:32px;}
+    .mob-menu.open{display:flex;}
+    .mob-menu a{font-family:var(--fd);font-size:2rem;font-weight:700;color:var(--text);text-decoration:none;}
+    .mob-menu a:hover{color:var(--accent);}
+    .mob-close{position:absolute;top:24px;right:28px;background:none;border:none;cursor:pointer;font-size:1.8rem;color:var(--text);}
+
+    /* buttons */
+    .btn-p{background:var(--accent);color:#0a0a0a;font-family:var(--fd);font-weight:700;font-size:.875rem;letter-spacing:.03em;padding:14px 32px;border-radius:100px;text-decoration:none;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background var(--t),transform var(--t),box-shadow var(--t);}
+    .btn-p:hover{background:#d9ff70;transform:translateY(-2px);box-shadow:0 12px 40px var(--accent-glow);}
+    .btn-s{background:transparent;color:var(--text);font-family:var(--fd);font-weight:600;font-size:.875rem;letter-spacing:.03em;padding:13px 32px;border-radius:100px;text-decoration:none;border:1px solid var(--border);cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:border-color var(--t),background var(--t),transform var(--t);}
+    .btn-s:hover{border-color:var(--border-h);background:rgba(255,255,255,.04);transform:translateY(-2px);}
+
+    /* breadcrumb */
+    .breadcrumb{padding:100px 60px 0;max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:10px;font-size:.8rem;color:var(--dim);}
+    .breadcrumb a{color:var(--muted);text-decoration:none;transition:color var(--t);}
+    .breadcrumb a:hover{color:var(--text);}
+    .breadcrumb-sep{color:var(--dim);}
+
+    /* hero section */
+    .proj-hero{padding:32px 60px 0;max-width:1200px;margin:0 auto;}
+    .proj-meta-row{display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap;}
+    .proj-tag{font-size:.72rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);background:var(--accent2);border:1px solid rgba(200,240,96,.2);padding:4px 12px;border-radius:100px;}
+    .proj-tag.alt{color:var(--muted);background:var(--card);border-color:var(--border);}
+    .proj-title{font-family:var(--fd);font-size:clamp(2.8rem,5.5vw,5rem);font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:24px;animation:fsu .8s ease both;}
+    .proj-title .ac{color:var(--accent);}
+    .proj-subtitle{font-size:1.15rem;color:var(--muted);max-width:620px;line-height:1.75;margin-bottom:40px;animation:fsu .9s .1s ease both;}
+    .proj-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:64px;animation:fsu .9s .15s ease both;}
+    @keyframes fsu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+    /* stats bar */
+    .proj-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:80px;}
+    .ps-item{background:var(--card);padding:24px 28px;}
+    .ps-label{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:8px;}
+    .ps-val{font-family:var(--fd);font-size:1.05rem;font-weight:700;color:var(--text);}
+
+    /* preview grid — Framer style 4-grid */
+    .preview-section{padding:0 60px 80px;max-width:1200px;margin:0 auto;}
+    .preview-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:16px;}
+    .pg-item{border-radius:var(--r);overflow:hidden;background:var(--card);border:1px solid var(--border);position:relative;transition:transform var(--t),border-color var(--t);}
+    .pg-item:hover{transform:scale(1.01);border-color:var(--border-h);}
+    .pg-item.tall{grid-row:span 2;}
+    .pg-item.wide{grid-column:span 2;}
+    .pg-img{width:100%;height:100%;min-height:260px;display:flex;align-items:center;justify-content:center;position:relative;}
+    .pg-item.tall .pg-img{min-height:560px;}
+    .pg-item.wide .pg-img{min-height:300px;}
+    .pg-overlay{position:absolute;bottom:0;left:0;right:0;padding:20px 24px;background:linear-gradient(to top,rgba(10,10,10,.9) 0%,transparent 100%);}
+    .pg-overlay-label{font-family:var(--fd);font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);}
+    .pg-overlay-sub{font-size:.8rem;color:var(--muted);margin-top:2px;}
+    .mock-screen{position:relative;z-index:2;border-radius:10px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.6);}
+    .mock-bar{height:28px;background:#1a1a1a;display:flex;align-items:center;padding:0 12px;gap:6px;border-bottom:1px solid rgba(255,255,255,.06);}
+    .mock-dot{width:8px;height:8px;border-radius:50%;}
+    .mock-content{background:#111;padding:16px;}
+    .mock-map{height:160px;background:linear-gradient(135deg,#0d1a0a,#1a2d10);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:2rem;position:relative;overflow:hidden;}
+    .mock-map::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 30px,rgba(200,240,96,.03) 30px,rgba(200,240,96,.03) 31px),repeating-linear-gradient(90deg,transparent,transparent 30px,rgba(200,240,96,.03) 30px,rgba(200,240,96,.03) 31px);}
+    .mock-pin{position:absolute;font-size:1.5rem;z-index:2;}
+    .mock-list{display:flex;flex-direction:column;gap:8px;margin-top:12px;}
+    .mock-row{background:#1a1a1a;border-radius:6px;padding:10px 12px;display:flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.05);}
+    .mock-row-ic{width:28px;height:28px;border-radius:6px;background:var(--accent2);display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;}
+    .mock-row-text{flex:1;}
+    .mock-row-title{font-family:var(--fd);font-size:.72rem;font-weight:700;margin-bottom:2px;}
+    .mock-row-sub{font-size:.65rem;color:var(--dim);}
+    .mock-row-badge{font-size:.6rem;color:var(--accent);background:var(--accent2);padding:2px 7px;border-radius:100px;font-weight:600;}
+    .bg-gis{background:linear-gradient(135deg,#0d1a0a 0%,#1a2d10 50%,#0d1509 100%);}
+    .bg-blue{background:linear-gradient(135deg,#0a0d1a 0%,#101528 50%,#0a0d14 100%);}
+    .bg-red{background:linear-gradient(135deg,#1a0a0d 0%,#2d1015 50%,#140a0d 100%);}
+    .bg-purple{background:linear-gradient(135deg,#0d0a1a 0%,#181028 50%,#0d0a14 100%);}
+
+    /* detail sections */
+    .detail-wrap{max-width:1200px;margin:0 auto;padding:0 60px;}
+    .detail-grid{display:grid;grid-template-columns:2fr 1fr;gap:80px;margin-bottom:80px;}
+    .detail-main{}
+    .detail-side{}
+    .section-label{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+    .section-label::before{content:'';display:block;width:24px;height:1px;background:var(--accent);}
+    .body-title{font-family:var(--fd);font-size:1.8rem;font-weight:800;letter-spacing:-.03em;margin-bottom:20px;line-height:1.2;}
+    .body-text{font-size:1rem;color:var(--muted);line-height:1.85;margin-bottom:20px;}
+    .body-text:last-child{margin-bottom:0;}
+
+    /* challenges */
+    .challenges-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px;margin-bottom:80px;}
+    .ch-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:28px;transition:border-color var(--t);}
+    .ch-card:hover{border-color:rgba(200,240,96,.2);}
+    .ch-num{font-family:var(--fd);font-size:2rem;font-weight:800;color:rgba(200,240,96,.15);letter-spacing:-.04em;margin-bottom:12px;line-height:1;}
+    .ch-title{font-family:var(--fd);font-size:1rem;font-weight:700;margin-bottom:8px;}
+    .ch-desc{font-size:.875rem;color:var(--muted);line-height:1.7;}
+
+    /* features */
+    .features-section{margin-bottom:80px;}
+    .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px;}
+    .feat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:28px 24px;transition:border-color var(--t),transform var(--t);}
+    .feat-card:hover{border-color:rgba(200,240,96,.2);transform:translateY(-3px);}
+    .feat-icon{width:44px;height:44px;background:var(--accent2);border:1px solid rgba(200,240,96,.2);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:16px;}
+    .feat-title{font-family:var(--fd);font-size:.95rem;font-weight:700;margin-bottom:8px;}
+    .feat-desc{font-size:.83rem;color:var(--muted);line-height:1.65;}
+
+    /* outcome */
+    .outcome-band{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:64px 60px;margin-bottom:80px;}
+    .outcome-inner{max-width:1200px;margin:0 auto;}
+    .outcome-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;margin-top:40px;}
+    .os-num{font-family:var(--fd);font-size:3rem;font-weight:800;letter-spacing:-.05em;color:var(--accent);line-height:1;}
+    .os-label{font-size:.85rem;color:var(--muted);margin-top:6px;line-height:1.5;}
+
+    /* tags sidebar */
+    .side-block{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:24px;margin-bottom:20px;}
+    .side-title{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:16px;}
+    .tag-wrap{display:flex;flex-wrap:wrap;gap:8px;}
+    .s-tag{font-size:.75rem;font-weight:500;color:var(--muted);background:var(--bg3);border:1px solid var(--border);padding:5px 12px;border-radius:100px;transition:border-color var(--t),color var(--t);}
+    .s-tag:hover{border-color:var(--accent);color:var(--accent);}
+    .meta-row{display:flex;justify-content:space-between;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--border);font-size:.875rem;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-key{color:var(--dim);}
+    .meta-val{color:var(--text);font-weight:500;text-align:right;}
+
+    /* more projects */
+    .more-section{padding:0 60px 80px;max-width:1200px;margin:0 auto;}
+    .more-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:32px;}
+    .more-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;text-decoration:none;color:inherit;display:block;transition:border-color var(--t),transform var(--t);}
+    .more-card:hover{border-color:var(--border-h);transform:translateY(-4px);}
+    .more-img{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:1.8rem;}
+    .more-body{padding:18px;}
+    .more-label{font-size:.68rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;}
+    .more-title{font-family:var(--fd);font-size:.95rem;font-weight:700;letter-spacing:-.01em;}
+
+    /* footer */
+    footer{border-top:1px solid var(--border);padding:48px 60px;max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+    .ft-logo{font-family:var(--fd);font-weight:800;font-size:1.1rem;letter-spacing:-.02em;color:var(--text);text-decoration:none;}
+    .ft-logo span{color:var(--accent);}
+    .ft-copy{font-size:.8rem;color:var(--dim);}
+    .ft-soc{display:flex;gap:12px;}
+    .ft-s{width:36px;height:36px;background:var(--card);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--muted);font-size:.85rem;transition:border-color var(--t),color var(--t);}
+    .ft-s:hover{border-color:var(--accent);color:var(--accent);}
+
+    /* reveal */
+    .rv{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+    .rv.visible{opacity:1;transform:none;}
+    .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+    @media(max-width:1024px){
+      nav{padding:20px 32px;} .n-links,.n-cta{display:none;} .n-ham{display:flex;}
+      .breadcrumb,.proj-hero,.preview-section,.detail-wrap,.outcome-band,.more-section{padding-left:32px;padding-right:32px;}
+      .proj-stats{grid-template-columns:1fr 1fr;}
+      .preview-grid{grid-template-columns:1fr;} .pg-item.tall,.pg-item.wide{grid-column:unset;grid-row:unset;}
+      .detail-grid{grid-template-columns:1fr;gap:40px;}
+      .detail-side{order:-1;}
+      .challenges-grid{grid-template-columns:1fr;}
+      .features-grid{grid-template-columns:1fr 1fr;}
+      .outcome-stats{grid-template-columns:1fr 1fr;}
+      .more-grid{grid-template-columns:1fr 1fr;}
+      footer{flex-direction:column;gap:24px;text-align:center;padding:40px 32px;}
+    }
+    @media(max-width:640px){
+      .proj-title{font-size:2.6rem;} .proj-stats{grid-template-columns:1fr 1fr;}
+      .features-grid{grid-template-columns:1fr;} .more-grid{grid-template-columns:1fr;}
+      .outcome-stats{grid-template-columns:1fr 1fr;}
+    }
+  </style>
+</head>
+<body>
+  <div class="cur" id="cur"></div>
+  <div class="cur-r" id="curR"></div>
+
+  <div class="mob-menu" id="mobMenu">
+    <button class="mob-close" id="mobClose">✕</button>
+    <a href="../index.html">Home</a>
+    <a href="../works.html">Works</a>
+    <a href="../index.html#about">About</a>
+    <a href="../index.html#contact">Contact</a>
+  </div>
+
+  <nav>
+    <a href="../index.html" class="n-logo">alif<span>.</span></a>
+    <ul class="n-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../works.html">Works</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#experience">Experience</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+    <a href="mailto:uiux.alif@gmail.com" class="n-cta">Let's Talk</a>
+    <button class="n-ham" id="ham"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb rv">
+    <a href="../index.html">Home</a>
+    <span class="breadcrumb-sep">/</span>
+    <a href="../works.html">Works</a>
+    <span class="breadcrumb-sep">/</span>
+    <span>WebGIS Hospital Finder</span>
+  </div>
+
+  <!-- Project Hero -->
+  <div class="proj-hero">
+    <div class="proj-meta-row rv">
+      <span class="proj-tag">GIS</span>
+      <span class="proj-tag">WebGIS</span>
+      <span class="proj-tag">UX Design</span>
+      <span class="proj-tag alt">2023</span>
+      <span class="proj-tag alt">Academic Project</span>
+    </div>
+    <h1 class="proj-title">WebGIS <span class="ac">Hospital</span><br>Finder – Semarang</h1>
+    <p class="proj-subtitle rv">A web-based geographic information system that helps residents of Semarang find the nearest, most suitable hospital — filtered by specialization, distance, and real-time availability.</p>
+    <div class="proj-ctas">
+      <a href="../index.html#contact" class="btn-p">Discuss a Similar Project</a>
+      <a href="../works.html" class="btn-s">← Back to Works</a>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="proj-stats rv">
+      <div class="ps-item">
+        <div class="ps-label">Timeline</div>
+        <div class="ps-val">3 Months</div>
+      </div>
+      <div class="ps-item">
+        <div class="ps-label">Role</div>
+        <div class="ps-val">Lead UI/UX Designer</div>
+      </div>
+      <div class="ps-item">
+        <div class="ps-label">Platform</div>
+        <div class="ps-val">Web Application</div>
+      </div>
+      <div class="ps-item">
+        <div class="ps-label">Tools Used</div>
+        <div class="ps-val">Figma, SuperMap</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Preview Grid — Framer showcase style 4-grid -->
+  <div class="preview-section">
+    <div class="preview-grid rv">
+
+      <!-- Tall left: main app screen mockup -->
+      <div class="pg-item tall bg-gis">
+        <div class="pg-img" style="align-items:flex-start;padding:28px;">
+          <div class="mock-screen" style="width:100%;">
+            <div class="mock-bar">
+              <div class="mock-dot" style="background:#ff5f57;"></div>
+              <div class="mock-dot" style="background:#febc2e;"></div>
+              <div class="mock-dot" style="background:#28c840;"></div>
+              <div style="flex:1;margin-left:8px;height:14px;background:#222;border-radius:4px;"></div>
+            </div>
+            <div class="mock-content">
+              <div style="font-family:var(--fd);font-size:.72rem;font-weight:700;color:var(--accent);margin-bottom:10px;letter-spacing:.06em;">HOSPITAL FINDER — SEMARANG</div>
+              <div class="mock-map">
+                <span style="z-index:2;font-size:2rem;">🗺️</span>
+                <div class="mock-pin" style="top:30%;left:40%;">📍</div>
+                <div class="mock-pin" style="top:55%;left:62%;">📍</div>
+                <div class="mock-pin" style="top:45%;left:28%;">📍</div>
+              </div>
+              <div class="mock-list">
+                <div class="mock-row">
+                  <div class="mock-row-ic">🏥</div>
+                  <div class="mock-row-text"><div class="mock-row-title">RSUD Dr. Kariadi</div><div class="mock-row-sub">General · 1.2 km away</div></div>
+                  <div class="mock-row-badge">Open</div>
+                </div>
+                <div class="mock-row">
+                  <div class="mock-row-ic">🏥</div>
+                  <div class="mock-row-text"><div class="mock-row-title">RS St. Elizabeth</div><div class="mock-row-sub">Specialist · 2.4 km away</div></div>
+                  <div class="mock-row-badge">Open</div>
+                </div>
+                <div class="mock-row">
+                  <div class="mock-row-ic">🏥</div>
+                  <div class="mock-row-text"><div class="mock-row-title">RS Telogorejo</div><div class="mock-row-sub">Cardiology · 3.1 km away</div></div>
+                  <div class="mock-row-badge">Open</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pg-overlay">
+          <div class="pg-overlay-label">Map View</div>
+          <div class="pg-overlay-sub">Interactive hospital map with proximity search</div>
+        </div>
+      </div>
+
+      <!-- Top right: filter panel -->
+      <div class="pg-item bg-blue">
+        <div class="pg-img" style="align-items:flex-start;padding:28px;">
+          <div style="width:100%;">
+            <div style="font-family:var(--fd);font-size:.72rem;font-weight:700;color:rgba(99,149,255,.8);letter-spacing:.08em;margin-bottom:16px;">FILTER & SEARCH</div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="background:#1a1f2e;border:1px solid rgba(99,149,255,.15);border-radius:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;">
+                <span>🔍</span>
+                <div style="font-size:.8rem;color:var(--dim);">Search hospital or specialization…</div>
+              </div>
+              <div style="font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-top:4px;">Specialization</div>
+              <div style="display:flex;flex-wrap:wrap;gap:7px;">
+                <div style="background:rgba(99,149,255,.15);border:1px solid rgba(99,149,255,.3);border-radius:100px;padding:5px 12px;font-size:.72rem;color:rgba(99,149,255,.9);font-weight:600;">General</div>
+                <div style="background:#1a1f2e;border:1px solid rgba(255,255,255,.07);border-radius:100px;padding:5px 12px;font-size:.72rem;color:var(--dim);">Cardiology</div>
+                <div style="background:#1a1f2e;border:1px solid rgba(255,255,255,.07);border-radius:100px;padding:5px 12px;font-size:.72rem;color:var(--dim);">Neurology</div>
+                <div style="background:#1a1f2e;border:1px solid rgba(255,255,255,.07);border-radius:100px;padding:5px 12px;font-size:.72rem;color:var(--dim);">Pediatrics</div>
+                <div style="background:#1a1f2e;border:1px solid rgba(255,255,255,.07);border-radius:100px;padding:5px 12px;font-size:.72rem;color:var(--dim);">Orthopedic</div>
+              </div>
+              <div style="font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-top:4px;">Distance Radius</div>
+              <div style="background:#1a1f2e;border-radius:8px;padding:14px;border:1px solid rgba(255,255,255,.05);">
+                <div style="display:flex;justify-content:space-between;font-size:.75rem;color:var(--muted);margin-bottom:8px;"><span>0 km</span><span style="color:rgba(99,149,255,.9);font-weight:600;">5 km</span><span>20 km</span></div>
+                <div style="height:4px;background:rgba(255,255,255,.08);border-radius:4px;position:relative;"><div style="position:absolute;left:0;width:30%;height:100%;background:rgba(99,149,255,.7);border-radius:4px;"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pg-overlay">
+          <div class="pg-overlay-label">Smart Filters</div>
+          <div class="pg-overlay-sub">Specialization and radius filtering</div>
+        </div>
+      </div>
+
+      <!-- Bottom right: hospital detail card -->
+      <div class="pg-item bg-red">
+        <div class="pg-img" style="align-items:flex-start;padding:28px;">
+          <div style="width:100%;">
+            <div style="font-family:var(--fd);font-size:.72rem;font-weight:700;color:rgba(255,140,99,.8);letter-spacing:.08em;margin-bottom:14px;">HOSPITAL DETAIL</div>
+            <div style="background:#1a1010;border:1px solid rgba(255,140,99,.12);border-radius:10px;padding:16px;">
+              <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;">
+                <div style="width:40px;height:40px;background:rgba(255,140,99,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">🏥</div>
+                <div>
+                  <div style="font-family:var(--fd);font-size:.9rem;font-weight:700;margin-bottom:3px;">RSUD Dr. Kariadi</div>
+                  <div style="font-size:.75rem;color:var(--muted);">Jl. Dr. Sutomo No.16, Semarang</div>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+                <div style="background:rgba(255,255,255,.04);border-radius:6px;padding:9px;"><div style="font-size:.65rem;color:var(--dim);margin-bottom:3px;">Distance</div><div style="font-family:var(--fd);font-size:.85rem;font-weight:700;color:rgba(255,140,99,.9);">1.2 km</div></div>
+                <div style="background:rgba(255,255,255,.04);border-radius:6px;padding:9px;"><div style="font-size:.65rem;color:var(--dim);margin-bottom:3px;">Rating</div><div style="font-family:var(--fd);font-size:.85rem;font-weight:700;color:rgba(255,140,99,.9);">4.7 ⭐</div></div>
+                <div style="background:rgba(255,255,255,.04);border-radius:6px;padding:9px;"><div style="font-size:.65rem;color:var(--dim);margin-bottom:3px;">Type</div><div style="font-family:var(--fd);font-size:.85rem;font-weight:700;">Government</div></div>
+                <div style="background:rgba(255,255,255,.04);border-radius:6px;padding:9px;"><div style="font-size:.65rem;color:var(--dim);margin-bottom:3px;">Status</div><div style="font-family:var(--fd);font-size:.85rem;font-weight:700;color:#4ade80;">Open 24hr</div></div>
+              </div>
+              <div style="background:rgba(255,140,99,.12);border:1px solid rgba(255,140,99,.2);border-radius:8px;padding:10px 14px;text-align:center;font-family:var(--fd);font-size:.8rem;font-weight:700;color:rgba(255,140,99,.9);">Get Directions →</div>
+            </div>
+          </div>
+        </div>
+        <div class="pg-overlay">
+          <div class="pg-overlay-label">Hospital Detail</div>
+          <div class="pg-overlay-sub">Rich info cards with directions</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Overview + Sidebar -->
+  <div class="detail-wrap">
+    <div class="detail-grid rv">
+      <div class="detail-main">
+        <p class="section-label">Project Overview</p>
+        <h2 class="body-title">Finding the right hospital<br>shouldn't be <span style="color:var(--accent)">hard.</span></h2>
+        <p class="body-text">Residents of Semarang faced a significant challenge: when in need of medical attention, there was no centralized, digital tool to quickly find the nearest suitable hospital based on their specific medical needs. People relied on word-of-mouth, outdated pamphlets, or time-consuming Google searches.</p>
+        <p class="body-text">This project set out to solve that problem through a web-based GIS application — combining geographic data from the city of Semarang with an intuitive, user-centered interface that made hospital discovery fast, accurate, and accessible to anyone with a smartphone or computer.</p>
+        <p class="body-text">As the lead designer, I was responsible for the full UX process: user research, journey mapping, wireframing, visual design, and the final interactive Figma prototype. The geospatial data layer was built in collaboration with a GIS engineer using SuperMap.</p>
+      </div>
+      <div class="detail-side">
+        <div class="side-block">
+          <div class="side-title">Project Tags</div>
+          <div class="tag-wrap">
+            <span class="s-tag">WebGIS</span><span class="s-tag">UX Design</span>
+            <span class="s-tag">Spatial Data</span><span class="s-tag">Health Tech</span>
+            <span class="s-tag">Figma</span><span class="s-tag">SuperMap</span>
+            <span class="s-tag">Prototyping</span><span class="s-tag">User Research</span>
+            <span class="s-tag">Academic Project</span>
+          </div>
+        </div>
+        <div class="side-block">
+          <div class="side-title">Project Details</div>
+          <div class="meta-row"><span class="meta-key">Year</span><span class="meta-val">2023</span></div>
+          <div class="meta-row"><span class="meta-key">Duration</span><span class="meta-val">3 Months</span></div>
+          <div class="meta-row"><span class="meta-key">Role</span><span class="meta-val">Lead UI/UX Designer</span></div>
+          <div class="meta-row"><span class="meta-key">Platform</span><span class="meta-val">Web App</span></div>
+          <div class="meta-row"><span class="meta-key">Industry</span><span class="meta-val">Health / GIS</span></div>
+          <div class="meta-row"><span class="meta-key">Status</span><span class="meta-val">Completed</span></div>
+        </div>
+        <div class="side-block">
+          <div class="side-title">Deliverables</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--muted);"><span style="color:var(--accent);">✓</span> UX Research Report</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--muted);"><span style="color:var(--accent);">✓</span> User Journey Maps</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--muted);"><span style="color:var(--accent);">✓</span> Wireframes (Lo-Fi)</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--muted);"><span style="color:var(--accent);">✓</span> High-Fidelity UI</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--muted);"><span style="color:var(--accent);">✓</span> Interactive Prototype</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--muted);"><span style="color:var(--accent);">✓</span> Design Documentation</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Challenges -->
+    <div class="rv">
+      <p class="section-label">Key Challenges</p>
+      <h2 class="body-title" style="margin-bottom:8px;">Problems we <span style="color:var(--accent)">solved.</span></h2>
+      <p class="body-text" style="max-width:600px;">Designing a spatial application for non-technical users presented unique UX challenges that required thoughtful solutions.</p>
+    </div>
+    <div class="challenges-grid rv">
+      <div class="ch-card">
+        <div class="ch-num">01</div>
+        <div class="ch-title">Map Complexity for Non-GIS Users</div>
+        <div class="ch-desc">Most users had no experience with GIS tools. The map interface had to feel as intuitive as Google Maps — with simplified controls, clear visual hierarchy, and progressive disclosure of spatial data.</div>
+      </div>
+      <div class="ch-card">
+        <div class="ch-num">02</div>
+        <div class="ch-title">Medical Data Hierarchy</div>
+        <div class="ch-desc">Hospital information is complex — types, specializations, facilities, hours, capacity. Designing information architecture that surfaced the right details at the right moment required extensive user research.</div>
+      </div>
+      <div class="ch-card">
+        <div class="ch-num">03</div>
+        <div class="ch-title">Mobile-First in a Low-Bandwidth Context</div>
+        <div class="ch-desc">Most users would access the tool on mobile during emergencies, often in areas with poor connectivity. The design had to be lightweight, fast, and functional on low-end devices.</div>
+      </div>
+      <div class="ch-card">
+        <div class="ch-num">04</div>
+        <div class="ch-title">Spatial Data Integration</div>
+        <div class="ch-desc">Bridging the gap between GIS data layers and a consumer-facing UI required close collaboration with the geospatial engineer to ensure data accuracy while maintaining design integrity.</div>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <div class="features-section rv">
+      <p class="section-label">Features</p>
+      <h2 class="body-title" style="margin-bottom:8px;">What's inside <span style="color:var(--accent)">the app.</span></h2>
+      <p class="body-text" style="max-width:600px;margin-bottom:0;">Core features designed to make hospital discovery seamless, accurate, and genuinely useful.</p>
+      <div class="features-grid">
+        <div class="feat-card">
+          <div class="feat-icon">📍</div>
+          <div class="feat-title">Location-Based Search</div>
+          <div class="feat-desc">Automatically detects the user's location and displays hospitals sorted by proximity using spatial distance calculation.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">🏥</div>
+          <div class="feat-title">Specialization Filter</div>
+          <div class="feat-desc">Filter hospitals by medical specialization — cardiology, neurology, pediatrics, general, and more — so users find exactly what they need.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">🗺️</div>
+          <div class="feat-title">Interactive GIS Map</div>
+          <div class="feat-desc">A fully interactive web map powered by SuperMap with custom-styled markers, clustering, and smooth pan/zoom interactions.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">📋</div>
+          <div class="feat-title">Rich Hospital Cards</div>
+          <div class="feat-desc">Detailed information cards with address, rating, operating hours, bed availability, contact, and direct navigation links.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">⚡</div>
+          <div class="feat-title">Radius Control</div>
+          <div class="feat-desc">Adjustable search radius slider lets users expand or narrow their search area dynamically on the map.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">📱</div>
+          <div class="feat-title">Responsive Design</div>
+          <div class="feat-desc">Fully responsive interface optimized for mobile, tablet, and desktop — ensuring usability in emergency situations from any device.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Outcome Stats -->
+  <div class="outcome-band rv">
+    <div class="outcome-inner">
+      <p class="section-label">Project Outcome</p>
+      <h2 class="body-title" style="margin-bottom:0;">Results that <span style="color:var(--accent)">speak.</span></h2>
+      <div class="outcome-stats">
+        <div><div class="os-num">40+</div><div class="os-label">Hospitals mapped across Semarang city</div></div>
+        <div><div class="os-num">8</div><div class="os-label">Specialization categories filterable</div></div>
+        <div><div class="os-num">3</div><div class="os-label">Months from research to prototype</div></div>
+        <div><div class="os-num">A+</div><div class="os-label">Academic project grade received</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- More Projects -->
+  <div class="more-section">
+    <p class="section-label rv">More Projects</p>
+    <h2 class="body-title rv d1" style="margin-bottom:0;">You might also <span style="color:var(--accent)">like.</span></h2>
+    <div class="more-grid rv d2">
+      <a href="shopee-food.html" class="more-card">
+        <div class="more-img bg-blue">🛍️</div>
+        <div class="more-body">
+          <div class="more-label">UX Redesign · Mobile</div>
+          <div class="more-title">Shopee Food UX Redesign</div>
+        </div>
+      </a>
+      <a href="split-payment.html" class="more-card">
+        <div class="more-img bg-red">💳</div>
+        <div class="more-body">
+          <div class="more-label">Product Design · FinTech</div>
+          <div class="more-title">Split Payment Feature</div>
+        </div>
+      </a>
+      <a href="peta-vaksin.html" class="more-card">
+        <div class="more-img bg-purple">💉</div>
+        <div class="more-body">
+          <div class="more-label">WebGIS · Data Viz · Award</div>
+          <div class="more-title">Peta Vaksin Indonesia</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <a href="../index.html" class="ft-logo">alif<span>.</span></a>
+    <div class="ft-copy">© 2025 Muhammad Alifian Rifqi. Designed with care in Jakarta.</div>
+    <div class="ft-soc">
+      <a href="mailto:uiux.alif@gmail.com" class="ft-s">✉</a>
+      <a href="https://bit.ly/Alifian-UIUX-Portfolio" target="_blank" class="ft-s">🔗</a>
+    </div>
+  </footer>
+
+  <script>
+    const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+    (function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(a);})();
+    document.querySelectorAll('a,button,.ch-card,.feat-card,.more-card').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{cur.style.width='16px';cur.style.height='16px';curR.style.width='48px';curR.style.height='48px';curR.style.opacity='.8';});
+      el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';curR.style.width='36px';curR.style.height='36px';curR.style.opacity='.45';});
+    });
+    document.getElementById('ham').addEventListener('click',()=>document.getElementById('mobMenu').classList.add('open'));
+    document.getElementById('mobClose').addEventListener('click',()=>document.getElementById('mobMenu').classList.remove('open'));
+    const obs=new IntersectionObserver(e=>e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');}),{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+  </script>
+</body>
+</html>
