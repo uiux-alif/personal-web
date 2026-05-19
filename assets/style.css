@@ -454,7 +454,20 @@ footer {
 }
 .tl-period { font-size: .75rem; color: var(--accent); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 8px; }
 .tl-role   { font-family: var(--fd); font-size: 1.15rem; font-weight: 700; letter-spacing: -.02em; margin-bottom: 4px; }
-.tl-co     { font-size: .9rem; color: var(--muted); margin-bottom: 12px; }
+.tl-co {
+  font-size: .9rem;
+  color: var(--muted);
+  margin-bottom: 12px;
+
+  display: inline-flex;
+  align-items: center;   /* 🔥 this fixes vertical alignment */
+  gap: 6px;              /* spacing between text and flag */
+  transform: translateY(5px); /* 👈 tweak this */
+}
+.tl-co svg {
+  height: 1em;
+  width: auto;
+}
 .tl-desc   { font-size: .9rem; color: var(--muted); line-height: 1.7; }
 
 /* Process */
